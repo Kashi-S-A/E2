@@ -9,15 +9,14 @@ import java.sql.Statement;
 public class Fetch {
 
 	public static void main(String[] args) {
-		String url = "jdbc:postgresql://localhost:5432/demodb";
-		String user = "postgres";
-		String pwd = "root";
+		String url = "jdbc:postgresql://localhost:5432/demodb?user=postgres&password=root";
+		
 		String driver = "org.postgresql.Driver";
 
 		try {
 			Class.forName(driver);
 
-			Connection con = DriverManager.getConnection(url, user, pwd);
+			Connection con = DriverManager.getConnection(url);
 
 			Statement stm = con.createStatement();
 

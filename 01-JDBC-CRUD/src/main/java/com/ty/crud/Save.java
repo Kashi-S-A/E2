@@ -2,8 +2,8 @@ package com.ty.crud;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 public class Save {
 
@@ -21,14 +21,19 @@ public class Save {
 			Connection con = DriverManager.getConnection(url, username, password);
 			System.out.println("Connection is created");
 
+			String query = "insert into student values(?,?,?,?)";
+
 			// step 3 : Create a Statement
-			Statement stm = con.createStatement();
+			PreparedStatement pstm = con.prepareStatement(query);
+			pstm.setInt(1, 105);
+			pstm.setString(2, "Chinga");
+			pstm.setString(3, "chinga@gmail.com");
+			pstm.setLong(4, 4567890);
+
 			System.out.println("statement is created");
 
-			String query = "insert into student values(104,'Pengi','pengi@gmail.com',45678765)";
-
 			// step 4 : Execute the query
-			stm.execute(query);
+			pstm.execute();
 			System.out.println("Record saved");
 
 			// step 5 : Close the connection
