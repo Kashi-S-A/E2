@@ -10,7 +10,7 @@ public class Fetch {
 
 	public static void main(String[] args) {
 		String url = "jdbc:postgresql://localhost:5432/demodb?user=postgres&password=root";
-		
+
 		String driver = "org.postgresql.Driver";
 
 		try {

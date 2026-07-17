@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class Update {
+public class TryWithResource {
 
 	public static void main(String[] args) {
 
@@ -13,13 +13,14 @@ public class Update {
 		String username = "postgres";
 		String password = "root";
 
-		Connection con = null;
-
 		try {
 			Class.forName("org.postgresql.Driver");
 			System.out.println("driver loaded");
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
 
-			con = DriverManager.getConnection(url, username, password);
+		try (Connection con = DriverManager.getConnection(url, username, password);) {
 			System.out.println("connection is created");
 
 			Statement stm = con.createStatement();
@@ -32,19 +33,8 @@ public class Update {
 
 			System.out.println("rows affected : " + res);
 
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} finally {
-			try {
-				if (con != null) {
-					con.close();
-					System.out.println("connection is closed");
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
 		}
 	}
 }
